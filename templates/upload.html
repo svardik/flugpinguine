@@ -1,0 +1,24 @@
+{% extends 'headerfooter.html' %} {% block title %} Upload your picture {%
+    endblock %} {% block content %}
+    <div class="m-3">
+        <form action="/upload_api" method="post" enctype="multipart/form-data">
+            
+            <div class="profile-image-change">
+                <input type="file" name="file" onchange="readURL(this);" accept="image/*">
+                <img src="" id="image_preview"/>
+            </div>
+        
+        
+        
+        <div class="name-data">
+            <p class="profile-description-text">Name:</p>
+            <input type="text" name="name" value="" maxlength="255" placeholder="Pinguslav" class="age-input">
+        </div>
+
+        <script src="{{ url_for('static', filename = '/js/changeimage.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        
+        <input type="submit" value="Save" class="edit-profile-submit">
+        </form>
+    </div>
+    {% endblock %}

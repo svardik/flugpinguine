@@ -1,0 +1,16 @@
+.page-header {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/homepage/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.navbar-gradient {
+  background-image: -webkit-linear-gradient(190deg, #fe654f, #d92027);
+  background-image: linear-gradient(10deg, #fe654f, #d92027);
+}
+
+.inventory-point {
+    list-style-type: none;
+}
+  

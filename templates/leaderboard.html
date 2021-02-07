@@ -1,0 +1,29 @@
+{% extends 'headerfooter.html' %} 
+{% block title %}Leaderboard???{% endblock %}
+{% block content %}
+
+
+  <h1 class="my-2">
+    Leaderboard:
+  </h1>
+  {% if not pictures %}
+  <h1>Leider keine Bilder gefunden! :(</h1>
+{% endif %}
+
+
+<div class="card-deck my-5">
+  {% for p in pictures %}
+  <div class="card">
+    <img class="card-img-top" src="{{url_for('static',filename=p.image_url)}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{p.place}}</h5>
+      <h5 class="card-title">{{p.name}}</h5>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">{{ "%.f"|format(p['score']*100|round) }}%</small>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

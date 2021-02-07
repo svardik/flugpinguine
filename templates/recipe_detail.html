@@ -1,0 +1,38 @@
+{% extends 'headerfooter.html' %} {% block title %} Rezept: {{ recipe.title}} {%
+endblock %} {% block content %}
+<div class="m-3">
+  <h1 class="my-2">{{recipe.title}}</h1>
+  <hr>
+  <img src="{{recipe.img_url}}" class="card-img-top" alt="{{recipe.title}}" />
+  <hr>
+  <div class="card-body">
+    <h2 class="card-title">Zutaten</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Menge</th>
+          <th scope="col">Zutat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in ingredients %}
+        <tr>
+          <td>{{i[0].amount}}</td>
+          <td>{{i[1].title}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr>
+
+    <h2>Zubereitung</h2>
+    <p class="card-text">{{recipe.steps | safe}}</p>
+    
+    <a href="{{recipe.url}}" class="btn btn-primary mt-3"
+      >Vollständiges Rezept auf chefkoch.de</a
+    >
+    <hr />
+    <a href="/recipes" class="btn btn-outline-primary">Zurück</a>
+  </div>
+</div>
+{% endblock %}
