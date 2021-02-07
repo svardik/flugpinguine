@@ -7,71 +7,8 @@ from models import Pictures,VotedFor
 from PIL import Image
 from algorithm import determine_score
 
-#from recipe_algo import get_potential_recipes,check_ingr_update
-
 upload_folder = 'files'
 backend = Blueprint('backend', __name__)
-
-# # GET ACTIVE ITEMS FORM INVENTORY
-# def get_current_inventory():
-#     return InventoryItems.query.filter_by(deleted_at=None).all()
-
-
-# # FIND RECIPES FROM INVENTORY
-# def get_recipes_from_inventory():
-#     recipes = get_potential_recipes()
-#     return recipes
-
-
-# # GET RECIPE AND INGREDIENTS DETAIL
-# def get_recipe_detail(_id):
-#     recipe_object = Recipe.query.filter_by(id=_id).first_or_404()
-#     ingredients = db.session.query(RecipeIngredients, Ingredient).filter_by(recipe_id=_id).outerjoin(
-#         RecipeIngredients, Ingredient.id == RecipeIngredients.ingredient_id).all()
-#     return {'recipe':recipe_object,'ingredients':ingredients}
-
-
-# # update recipe matching object when item is added or deleted by the user
-# def update_recipe_matching():
-#     rm = RecipeMatching.query.order_by(RecipeMatching.id.desc()).first()
-#     if rm:
-#         rm.ingredients_changed_at = datetime.now()
-#         db.session.commit()
-
-
-# # --- ENDPOINTS FOR ADDING AND DELETING ITEMS ---
-# # ADD NEW ITEM - html form for data transfer
-# @backend.route('/picture/new', methods=["POST"])
-# def new_inventory():
-#     if request.form and request.form['new_ingredient']:
-#         new_ingredient_name = request.form['new_ingredient']
-        
-#         # add item
-#         item = InventoryItems(name=new_ingredient_name)
-#         db.session.add(item)
-#         db.session.commit()
-
-#         # update matching status
-#         update_recipe_matching()
-
-#         return redirect(url_for('views.index'))
-
-
-# # DELETE ITEM - json for data transfer
-# @backend.route('/inventory/delete', methods=["DELETE"])
-# def delete_inventory():
-#     if request.json and request.json['delete_ingredient_id']:
-#         delete_ingredient_id = request.json['delete_ingredient_id']
-
-#         # delete item
-#         item = InventoryItems.query.filter_by(id=delete_ingredient_id).first()
-#         item.deleted_at = datetime.now()
-#         db.session.commit()
-
-#         # update matching status
-#         update_recipe_matching()
-    
-#         return {"success":True}
 
 ALLOWED_EXTENSIONS = ['jpg','jpeg','png']
 def allowed_file(filename):

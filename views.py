@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, abort, Blueprint
-#from backend import get_recipes_from_inventory, get_recipe_detail,get_current_inventory
 from extensions import db
 from models import Pictures
 from algorithm import get_two_pictures
