@@ -1,34 +1,35 @@
 {% extends 'headerfooter.html' %} {% block title %} Vote for the better picture {%
 endblock %} {% block content %}
 
-<div class="m-3">
+<div class="m-3 text-center">
     <h1>Clicke auf das bessere Bild:</h1>
-    <div class="row">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                
-                <div class="card m-1" style="width: 18rem;">
-                    <a href="/voting_api?first={{picture1.id}}&second={{picture2.id}}&winner={{picture1.id}}">
-                    <img src="{{url_for('static',filename=picture1.image_url)}}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{picture1.name}}</h5>
-                    </div>
-                </div>
 
-            </div>
-            <div class="col">
-                <div class="card m-1" style="width: 18rem;">
-                    <a href="/voting_api?first={{picture1.id}}&second={{picture2.id}}&winner={{picture2.id}}">
-                    <img src="{{url_for('static',filename=picture2.image_url)}}" class="card-img-top" alt="...">
+    <div class="row justify-content-md-center">
+
+
+        <div class="col-md-auto">
+            <div class="card m-1" style="width: 18rem;">
+                <a href="/voting_api?first={{picture1.id}}&second={{picture2.id}}&winner={{picture1.id}}">
+                <img src="{{url_for('static',filename=picture1.image_url)}}" class="card-img-top" alt="...">
                 </a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{picture2.name}}</h5>
-                    </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{picture1.name}}</h5>
                 </div>
             </div>
         </div>
-    </div>
+
+
+        <div class="col-md-auto">
+            <div class="card m-1" style="width: 18rem;">
+                <a href="/voting_api?first={{picture1.id}}&second={{picture2.id}}&winner={{picture2.id}}">
+                <img src="{{url_for('static',filename=picture2.image_url)}}" class="card-img-top" alt="...">
+            </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{picture2.name}}</h5>
+                </div>
+            </div>
+        </div>
+      </div>
 
     <a href="/leaderboard" class="btn btn-primary btn-lg mt-5 mx-2" role="button">Voting verlassen</a>
 </div>

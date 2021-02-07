@@ -3,15 +3,30 @@
 {% block content %}
 
 
-  <h1 class="my-2">
+  <h1 class="my-2 text-center">
     Wilkommen am Ende von PGDP!
   </h1>
-  <h2>Hier werden die besten W12H01 Abgaben gewertet!</h2>
+  <h2 class="text-center">Hier werden die besten W12H01 Abgaben gewertet!</h2>
 
-  <div class="m-2">
-    <button class="btn btn-link" href="{{ url_for('views.leaderboard') }}">Leaderboard</button>
-    <button class="btn btn-link" href="{{ url_for('views.upload') }}">Upload</button>
-    <button class="btn btn-link" href="{{ url_for('views.voting') }}">Voting</button>
+  <div class="my-5 text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('views.leaderboard') }}">Leaderboard</a>
+          </div>
+          <div class="col-sm">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('views.voting') }}">Voting</a>
+          </div>
+          <div class="col-sm">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('views.upload') }}">Upload</a>
+          </div>
+
+        </div>
+      </div>
+
+    
+    
+    
   </div>
 
 {% endblock %}
