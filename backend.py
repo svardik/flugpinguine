@@ -6,6 +6,7 @@ from extensions import db
 from models import Pictures,VotedFor
 from PIL import Image
 from algorithm import determine_score
+import random
 
 upload_folder = 'files'
 backend = Blueprint('backend', __name__)
@@ -15,6 +16,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_random_string(length):
+    sample_letters = 'abcdefghijklmnopqrstuvwxyz '
+    result_str = ''.join((random.choice(sample_letters) for i in range(length)))
+    return result_str
 
 @backend.route('/upload_api', methods=['POST'])
 def upload_file():
@@ -34,6 +39,8 @@ def upload_file():
         if file and allowed_file(file.filename):
             #try:
             # get last id
+
+            rs = get_random_string(10)
             p_new = Pictures(name=name)
             db.session.add(p_new)
             db.session.commit()
@@ -47,13 +54,13 @@ def upload_file():
             image = image.resize((basewidth,hsize), Image.ANTIALIAS)
 
             THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-            my_file = os.path.join(THIS_FOLDER, "static/files/"+str(p_new.id)+'.jpg')
+            my_file = os.path.join(THIS_FOLDER, "static/files/"+str(p_new.id)+'-'+rs+'.jpg')
 
             new_image = Image.new("RGBA", image.size, "WHITE") # Create a white rgba background
             new_image.paste(image, (0, 0), image)            # Paste the image on the background. Go to the links given below for details.
             new_image.convert('RGB').save(my_file, "JPEG")  # Save as JPEG
 
-            p_new.image_url = "files/"+str(p_new.id)+'.jpg'
+            p_new.image_url = "files/"+str(p_new.id)+'-'+rs+'.jpg'
             db.session.commit()      
 
 

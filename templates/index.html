@@ -2,6 +2,15 @@
 {% block title %}Pinguine ausmalen!!!{% endblock %}
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
   <h1 class="my-2 text-center">
     Wilkommen am Ende von PGDP!
