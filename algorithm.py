@@ -24,7 +24,6 @@ def determine_score():
     for i in range(len(win_lost)):
         score = 0.0
         games = sum(win_lost[i])
-        print(games)
         if games > 3:
             score = win_lost[i][0] / games
         scores_dir[i]=score
@@ -32,11 +31,9 @@ def determine_score():
     sorted_dir = {k: v for k, v in sorted(scores_dir.items(), key=lambda item: item[1])}
     
     places_dir = list(sorted_dir.keys())[::-1]
-    print(places_dir)
     out_dir = {}
     for i in range(pictures):
         _id = places_dir[i]
-        print(_id,"is this place: ",i+1)
         pc = Pictures.query.filter_by(id=_id).first()
         if(pc is not None):
             pc.place = i+1

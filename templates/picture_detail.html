@@ -6,7 +6,8 @@
       <img src="{{url_for('static',filename=picture.image_url)}}" class="card-img-top" alt="{{picture.name}}" />
       <hr>
       <div class="card-body">
-        <h2 class="card-title">Platzierung: </h2>
+        <h2 class="card-title">Platzierung: {{picture.place}}</h2>
+        <h2 class="card-title">Score: {{picture.score}}</h2>
         
       </div></div>
     {% endblock %}

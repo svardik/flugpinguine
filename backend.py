@@ -102,12 +102,18 @@ def upload_file():
             db.session.commit()
             
             image = Image.open(request.files['file'].stream).convert("RGBA")
-            
+            basewidth = 400
+
+            wpercent = (basewidth/float(image.size[0]))
+            hsize = int((float(image.size[1])*float(wpercent)))
+
+            image = image.resize((basewidth,hsize), Image.ANTIALIAS)
+
             THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
             my_file = os.path.join(THIS_FOLDER, "static/files/"+str(p_new.id)+'.jpg')
 
             new_image = Image.new("RGBA", image.size, "WHITE") # Create a white rgba background
-            new_image.paste(image, (0, 0), image)              # Paste the image on the background. Go to the links given below for details.
+            new_image.paste(image, (0, 0), image)            # Paste the image on the background. Go to the links given below for details.
             new_image.convert('RGB').save(my_file, "JPEG")  # Save as JPEG
 
             p_new.image_url = "files/"+str(p_new.id)+'.jpg'
@@ -133,5 +139,5 @@ def voting():
         db.session.add(vf)
         db.session.commit()
         determine_score()
-        print(winner_id)
+        #print(winner_id)
     return redirect(url_for('views.voting'))

@@ -11,18 +11,23 @@
 {% endif %}
 
 
-<div class="card-deck my-5">
+<div class="my-5 row row-cols-3">
   {% for p in pictures %}
-  <div class="card">
+  {% if p.score and p.place%}
+  <div>
+  <div class="card m-3 {% if p.place==1%}bg-warning{%endif%} {% if p.place==2%}bg-light{%endif%} {% if p.place==3%}bg-danger{%endif%}" >
     <img class="card-img-top" src="{{url_for('static',filename=p.image_url)}}" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">{{p.place}}</h5>
       <h5 class="card-title">{{p.name}}</h5>
     </div>
     <div class="card-footer">
-      <small class="text-muted">{{ "%.f"|format(p['score']*100|round) }}%</small>
+      <small class="text-muted"> {{ "%.f"|format(p['score']*100|round) }}% 
+        </small>
     </div>
   </div>
+</div>
+  {% endif %}
   {% endfor %}
 </div>
 
