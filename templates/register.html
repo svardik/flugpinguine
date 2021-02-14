@@ -1,0 +1,29 @@
+{% extends 'headerfooter.html' %} {% block title %} Anmelden! {%
+    endblock %} {% block content %}
+    <div class="m-3">
+      <h1 class="my-2">Registriere dich an, um ein Bild hochzuladen oder zu voten:</h1>
+      <form action="/register_api" method="post">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+
+      <div class="alert alert-primary" role="alert">
+      {{ message }}
+      </div>
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Name (z.B. Vorname, Nick, LRZ-Kennung)</label>
+        <input type="text" class="form-control" id="name" name="name" minlength="3" maxlength="255" value="{% if 'user' in session and session['user'] != None %}{{session['user']}}{% endif %}">
+        <div id="emailHelp" class="form-text">Andere Nutzer können diesen Namen bei deinem Upload sehen!</div>
+      </div>
+    <button type="submit" class="btn btn-primary">Registrieren</button> 
+    <p>Nach der Registrierung wirst du auf eine Seite weitergeleitet, wo dir dein Passwort angezeigt wird.</p>
+
+
+</form>
+<p>Oder stattdessen <a href="/register">registrieren</a></p>
+      </div>
+    {% endblock %}

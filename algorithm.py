@@ -1,10 +1,28 @@
 from models import Pictures,VotedFor
+from flask import session
 import random
 from extensions import db
+from sqlalchemy.sql import text
+import time
+import threading
 
 def get_two_pictures():
-    all_pics = Pictures.query.all()
-    return random.sample(all_pics,2)
+    result = db.engine.execute(text("""
+        select p1.id, p2.id
+        from pictures p1, pictures p2
+        where p1.id <> p2.id and 
+            not exists(
+                select * 
+                from votedfor v 
+                where v.user=%d and ((v.first=p1.id and v.second=p2.id) or (v.first=p2.id and v.second=p1.id)
+            )
+        );
+    """%session['user_id'])).fetchall()
+    print(result)
+    if result:
+        res = random.choice(result)
+        return Pictures.query.filter_by(id=res[0]).first(),Pictures.query.filter_by(id=res[1]).first()
+    return None
 
 
 def determine_score():
@@ -24,7 +42,7 @@ def determine_score():
     for i in range(len(win_lost)):
         score = 0.0
         games = sum(win_lost[i])
-        if games > 3:
+        if games > 5:
             score = win_lost[i][0] / games
         scores_dir[i]=score
     
@@ -32,15 +50,17 @@ def determine_score():
     
     places_dir = list(sorted_dir.keys())[::-1]
     out_dir = {}
+    
+    current_place = 1
     for i in range(pictures):
         _id = places_dir[i]
-        pc = Pictures.query.filter_by(id=_id).first()
+        pc = Pictures.query.filter_by(id=_id).filter_by(active=True).first()
         if(pc is not None):
-            pc.place = i+1
+            pc.place = current_place
             pc.score = scores_dir[_id]
             db.session.commit()
-        place = i+1
-        out_dir[_id] = place
-
-    
+            current_place+=1
+            out_dir[_id] = current_place
     return out_dir
+
+

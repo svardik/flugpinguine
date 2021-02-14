@@ -1,14 +1,21 @@
 {% extends 'headerfooter.html' %} {% block title %} {{ picture.name}}'s Bild {%
     endblock %} {% block content %}
     <div class="m-3">
-      <h1 class="my-2">{{ picture.name}}'s Bild:</h1>
+      <h1 class="my-2">{{picture[1].name}}'s Bild:</h1>
       <hr>
-      <img src="{{url_for('static',filename=picture.image_url)}}" class="card-img-top" alt="{{picture.name}}" />
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 my-3"><img src="{{url_for('static',filename=picture[0].image_url)}}" class="rounded" alt="{{picture[0].name}}'s Bild" /></div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 my-3">
+          <h3>Platzierung: {{picture[0].place}}.</h2>
+        <h3>Score: {{ "%.f"|format(picture[0]['score']*100|round) }}%</h2>
+          <hr>
+        <h2>Kommentar:</h2>
+        <p>{{picture[0].description}}</p></div>
+      
       <hr>
       <div class="card-body">
-        <h2 class="card-title">Platzierung: {{picture.place}}</h2>
-        <h2 class="card-title">Score: {{picture.score}}</h2>
         
-      </div></div>
+      </div></div></div>
     {% endblock %}
     

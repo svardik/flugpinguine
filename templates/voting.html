@@ -2,6 +2,7 @@
 endblock %} {% block content %}
 
 <div class="m-3 text-center">
+    {% if picture1 and picture2%}
     <h1>Clicke auf das bessere Bild:</h1>
 
     <div class="row justify-content-md-center">
@@ -13,7 +14,7 @@ endblock %} {% block content %}
                 <img src="{{url_for('static',filename=picture1.image_url)}}" class="card-img-top" alt="...">
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{picture1.name}}</h5>
+                    <p class="card-title">{{picture1.description}}</p>
                 </div>
             </div>
         </div>
@@ -25,12 +26,14 @@ endblock %} {% block content %}
                 <img src="{{url_for('static',filename=picture2.image_url)}}" class="card-img-top" alt="...">
             </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{picture2.name}}</h5>
+                    <p class="card-title">{{picture2.description}}</p>
                 </div>
             </div>
         </div>
       </div>
-
+    {% else %}
+    <h1>Es gibt keine Bilder mehr, bei denen du abstimmen könntest!</h1>
+    {% endif %}
     <a href="/leaderboard" class="btn btn-primary btn-lg mt-5 mx-2" role="button">Voting verlassen</a>
 </div>
 {% endblock %}

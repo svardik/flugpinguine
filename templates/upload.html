@@ -3,15 +3,17 @@
     <div class="m-3 text-center">
         <h1 class="m-3">Lade dein Bild hoch:</h1>
         <form action="/upload_api" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="name">Name: </label>
-                <input type="text" name="name" value="" maxlength="255" placeholder="Pinguslav" class="form-control">
-            </div>
-
             <div class="profile-image-change my-3" >
                 <img src="" id="image_preview" style="width: 18rem;"/>
                 <input type="file" name="file" onchange="readURL(this);" accept="image/*">
             </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Kommentar</label>
+                <textarea class="form-control" id="description" name="description" rows="3" maxlength="500"></textarea>
+              </div>
+
+            
         
 
 

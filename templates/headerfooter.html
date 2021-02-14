@@ -28,9 +28,29 @@
                 <li class="nav-item">
                     <a href="{{ url_for('views.upload') }}" class="nav-link text-light">Upload</a>
                 </li>
+                
             </ul>
             
             
+            {% if session['authenticated'] %}
+            <div style="position: relative;">
+                  <div class="dropdown">
+                    <a class="btn bg-light text-primary dropdown-toggle" href ="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{session['user']}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{{url_for('backend.find_own_picture')}}">Mein Upload</a>
+                      <a class="dropdown-item" href="{{ url_for('backend.logout') }}">Abmelden</a>
+                    </div>
+                  </div>
+            </div>
+
+        
+            {% else %}
+            <a href="{{ url_for('backend.reset_login') }}" class="nav-link text-primary btn bg-light m-2">Anmelden</a>
+            <a href="{{ url_for('views.register') }}" class="nav-link btn btn-primary m-2">Registrieren</a>
+            {% endif %}
+        
         </div>
     </div>
     </nav>

@@ -6,29 +6,74 @@
   <h1 class="my-2">
     Leaderboard:
   </h1>
-  {% if not pictures %}
+  {% if not leaderboard.items %}
   <h1>Leider keine Bilder gefunden! :(</h1>
 {% endif %}
 
 
 <div class="my-5 row row-cols-3">
-  {% for p in pictures %}
+  {% for p,u in leaderboard.items %}
   {% if p.score and p.place%}
   <div>
-  <div class="card m-3 {% if p.place==1%}bg-warning{%endif%} {% if p.place==2%}bg-light{%endif%} {% if p.place==3%}bg-danger{%endif%}" >
+    
+  <div class="card m-3 {% if p.place==1%}bg-warning{%endif%} {% if p.place==2%}bg-light{%endif%}" >
+    <a href="{{url_for('views.picture_detail',_id=p.id)}}">
     <img class="card-img-top" src="{{url_for('static',filename=p.image_url)}}" alt="Card image cap">
+  </a>
     <div class="card-body">
-      <h5 class="card-title">{{p.place}}</h5>
-      <h5 class="card-title">{{p.name}}</h5>
+      <h5 class="card-title">{{p.place}}. {{u.name}}</h5>
+      <p class="card-text text-truncate">{{p.description}}</p>
     </div>
     <div class="card-footer">
       <small class="text-muted"> {{ "%.f"|format(p['score']*100|round) }}% 
         </small>
     </div>
   </div>
+
 </div>
   {% endif %}
-  {% endfor %}
-</div>
 
+
+
+
+
+
+  {% endfor %}
+
+
+  
+
+
+</div>
+{% if leaderboard.items %}
+<nav class="mb-5">
+
+        <ul class="pagination justify-content-center">
+          <li class="page-item {%if not leaderboard.prev_num %}disabled{%endif%}">
+            <a class="page-link" {%if leaderboard.prev_num %}href="{{url_for('views.leaderboard',page=leaderboard.prev_num)}}"{%endif%} aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Vorherige</span>
+            </a>
+          </li>
+          
+
+          {%for page in leaderboard.iter_pages() %}
+          {%if page%}
+          <li class="page-item {%if leaderboard.page == page %}active{%endif%} "><a class="page-link" href="{{url_for('views.leaderboard',page=page)}}">{{page}}</a></li>
+          
+        {%else%}
+        <li class="page-item disabled"><a class="page-link disabled">...</a></li>
+        {%endif%}
+        {% endfor %}
+
+          <li class="page-item {%if not leaderboard.next_num %}disabled{%endif%}">
+            <a class="page-link" {%if leaderboard.next_num %}href="{{url_for('views.leaderboard',page=leaderboard.next_num)}}"{%endif%} aria-label="Previous">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Nächste</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      {%endif%}
 {% endblock %}
