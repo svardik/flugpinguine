@@ -1,7 +1,7 @@
 {% extends 'headerfooter.html' %} {% block title %} Registration! {%
     endblock %} {% block content %}
     <div class="m-3">
-      <h1 class="my-2">Registriere dich, um ein Bild hochzuladen oder zu voten:</h1>
+      <h1 class="my-2">Melde dich an, um ein Bild hochzuladen oder zu voten:</h1>
       <form action="/login_api" method="post">
       {% with messages = get_flashed_messages() %}
       {% if messages %}
