@@ -10,16 +10,16 @@ def get_two_pictures():
     result = db.engine.execute(text("""
         select p1.id, p2.id
         from pictures p1, pictures p2
-        where p1.id <> p2.id and 
-            not exists(
-                select * 
-                from votedfor v 
-                where v.user=%d and ((v.first=p1.id and v.second=p2.id) or (v.first=p2.id and v.second=p1.id)
-            )
-        )
-        ORDER BY RANDOM() LIMIT 1
+        where p1.id <> p2.id
+        ORDER BY RANDOM() 
+        LIMIT 1
         ;
-    """%session['user_id'])).fetchall()
+    """)).fetchall()
+    # not exists(
+    #             select * 
+    #             from votedfor v 
+    #             where v.user=%d and ((v.first=p1.id and v.second=p2.id) or (v.first=p2.id and v.second=p1.id))
+    #     )
     print(result)
     if result:
         res = random.choice(result)
