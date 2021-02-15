@@ -101,11 +101,11 @@ def voting():
         
 
         vf = VotedFor(first=first_id,second=second_id,winner=winner_id,user=session['user_id'], created_at=datetime.now())
-        #
         db.session.add(vf)
         db.session.commit()
-        determine_score()
-        #print(winner_id)
+        print(vf.id)
+        if vf.id % 50==0:
+            determine_score()
     return redirect(url_for('views.voting'))
 
 @backend.route('/register_api', methods=['POST'])

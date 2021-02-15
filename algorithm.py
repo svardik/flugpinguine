@@ -18,7 +18,7 @@ def get_two_pictures():
             )
         );
     """%session['user_id'])).fetchall()
-    print(result)
+    #print(result)
     if result:
         res = random.choice(result)
         return Pictures.query.filter_by(id=res[0]).first(),Pictures.query.filter_by(id=res[1]).first()
