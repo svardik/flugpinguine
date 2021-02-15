@@ -92,6 +92,14 @@ def voting():
         first_id = request.args["first"]
         second_id = request.args["second"]
         winner_id = request.args["winner"]
+
+        check_vf1 = VotedFor.query.filter_by(first=first_id,second=second_id,user=session['user_id']).first()
+        check_vf2 = VotedFor.query.filter_by(first=second_id,second=first_id,user=session['user_id']).first()
+        if check_vf1 or check_vf2:
+            print('already voted')
+            return redirect(url_for('views.voting'))
+        
+
         vf = VotedFor(first=first_id,second=second_id,winner=winner_id,user=session['user_id'], created_at=datetime.now())
         #
         db.session.add(vf)
