@@ -10,7 +10,7 @@ def get_two_pictures():
     result = db.engine.execute(text("""
         select p1.id, p2.id
         from pictures p1, pictures p2
-        where p1.id <> p2.id
+        where p1.id <> p2.id and p1.active and p2.active
         ORDER BY RANDOM() 
         LIMIT 1
         ;
