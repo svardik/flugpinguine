@@ -1,5 +1,5 @@
 {% extends 'headerfooter.html' %} 
-{% block title %}Pinguine ausmalen!!!{% endblock %}
+{% block title %}Zeit für Pinguine ausmalen!{% endblock %}
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
@@ -12,11 +12,14 @@
   {% endif %}
 {% endwith %}
 
-  <h1 class="my-2 text-center">
-    Wilkommen am Ende von PGDP!
-  </h1>
-  <h2 class="text-center">Hier werden die besten W12H01 Abgaben gewertet!</h2>
 
+  <h1 class="text-center my-3">Wilkommen beim Wettbewerb der Flugpinguine!</h1>
+  <hr>
+  <h2 class="text-center my-2">Upload Deadline ist wie bei PGDP der Montag, 22.02.2021, 5:30, danach nur noch Voting möglich!</h2>
+  <hr>
+  <h2 class="text-center my-2">Die Gewinner werden am Dienstag, den 23.02.2021 auf dem Ersti-Info Discord geehrt!</h2>
+  <hr>
+  <h2 class="text-center my-2">Als Hauptpreis gibt es einen Kasten Bier von Franz (oder nach Wunsch auch eine Alternative)!🍺</h2>
   <div class="my-5 text-center">
       <div class="container">
         <div class="row">
@@ -29,13 +32,8 @@
           <div class="col-sm">
             <a class="btn btn-primary btn-lg m-3" href="{{ url_for('views.upload') }}">Upload</a>
           </div>
-
         </div>
       </div>
-
-    
-    
-    
   </div>
 
 {% endblock %}
