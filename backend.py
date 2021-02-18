@@ -190,4 +190,9 @@ def find_own_picture():
     abort(404)
 
 
+@backend.route('/epilepsy')
+def epilepsie():
+    return '''<iframe src="http://www.staggeringbeauty.com/" style="border: 1px inset #ddd" width="100%" height="100%"></iframe>'''
+
+
 
