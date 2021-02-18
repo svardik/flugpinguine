@@ -142,22 +142,24 @@ def login():
         try:
         # check if user already exists
             user_in_db = Users.query.filter_by(name=name).first()
+
+            if not user_in_db:
+                flash('Diesen Nutzer gibt es nicht!')
+                return redirect(url_for('views.login'))
+
+            if check_pw(name,pw):
+                session['authenticated']=True
+                session['user_id']=user_in_db.id
+                session['user']=name
+                flash('Erfolgreich angemeldet!')
+                return redirect(url_for('views.index'))
+        
+        
+            flash('Nutzer existiert nicht oder falsches Passwort!')
+            return redirect(url_for('views.login'))
         except Exception as e:
             return e
-        if not user_in_db:
-            flash('Diesen Nutzer gibt es nicht!')
-            return redirect(url_for('views.login'))
-
-        if check_pw(name,pw):
-            session['authenticated']=True
-            session['user_id']=user_in_db.id
-            session['user']=name
-            flash('Erfolgreich angemeldet!')
-            return redirect(url_for('views.index'))
         
-        flash('Nutzer existiert nicht oder falsches Passwort!')
-        return redirect(url_for('views.login'))
-    
     
     flash('Etwas ist bei der Anmeldung schiefgelaufen!')
     return redirect(url_for('views.login'))
