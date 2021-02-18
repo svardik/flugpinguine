@@ -139,9 +139,11 @@ def login():
     if 'name' in request.form and 'password' in request.form:
         name = request.form['name']
         pw = request.form['password']
-
+        try:
         # check if user already exists
-        user_in_db = Users.query.filter_by(name=name).first()
+            user_in_db = Users.query.filter_by(name=name).first()
+        except Exception as e:
+            return e
         if not user_in_db:
             flash('Diesen Nutzer gibt es nicht!')
             return redirect(url_for('views.login'))
