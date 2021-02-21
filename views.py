@@ -3,9 +3,10 @@ from functools import wraps
 from extensions import db
 from models import Pictures,Users
 from algorithm import get_two_pictures
+import datetime
 
 views = Blueprint('views', __name__)
-
+deadline = datetime.datetime(2021,2,22,5,30)
 
 def login_required(f):
     @wraps(f)
@@ -34,6 +35,8 @@ def leaderboard():
 @views.route('/upload')
 @login_required
 def upload():
+    if datetime.datetime.now() > deadline:
+        return render_template('uploadabgelaufen.html')
     return render_template('upload.html')
 
 # Page to view recommended recipes

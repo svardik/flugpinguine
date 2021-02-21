@@ -1,0 +1,9 @@
+{% extends 'headerfooter.html' %} {% block title %} Deine Flugpinguine hochladen {%
+    endblock %} {% block content %}
+    <div class="m-3 text-center">
+        <h1 class="m-3">Die Uploadfrist ist abgelaufen!</h1>
+        <a class="btn btn-primary btn-lg m-3" href="{{ url_for('views.voting') }}">Zum Voting</a>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{% endblock %}

@@ -12,7 +12,7 @@ import views
 
 upload_folder = 'files'
 backend = Blueprint('backend', __name__)
-
+deadline = datetime(2021,2,22,5,30)
 ALLOWED_EXTENSIONS = ['jpg','jpeg','png']
 PASSWORD_TEXTS = ('penguin','pingu','fish','antarktis')
 
@@ -40,6 +40,8 @@ def check_pw(name,pw):
 
 @backend.route('/upload_api', methods=['POST'])
 def upload_file():
+    if datetime.now() > deadline:
+        return render_template('uploadabgelaufen.html')
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files or 'description' not in request.form or 'authenticated' not in session or not session['authenticated']:
