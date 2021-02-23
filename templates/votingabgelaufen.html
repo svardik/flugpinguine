@@ -1,0 +1,10 @@
+{% extends 'headerfooter.html' %} {% block title %} Deine Flugpinguine hochladen {%
+    endblock %} {% block content %}
+    <div class="m-3 text-center">
+        <h1 class="m-3">Voting nicht mehr möglich!</h1>
+       <a class="btn btn-primary btn-lg m-3" href="{{ url_for('views.leaderboard') }}">Zum Leaderboard</a>
+    </div>
+    
+    <script src="{{ url_for('static', filename = '/js/changeimage.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{% endblock %}

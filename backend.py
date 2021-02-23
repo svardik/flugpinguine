@@ -13,6 +13,7 @@ import views
 upload_folder = 'files'
 backend = Blueprint('backend', __name__)
 deadline = datetime(2021,2,22,5,30)
+deadline_voting = datetime(2021,2,23,20,00)
 ALLOWED_EXTENSIONS = ['jpg','jpeg','png']
 PASSWORD_TEXTS = ('penguin','pingu','fish','antarktis')
 
@@ -90,6 +91,8 @@ def upload_file():
 
 @backend.route('/voting_api', methods=['GET'])
 def voting():
+    if datetime.now() > deadline_voting:
+        return render_template('votingabgelaufen.html')
     if "first" in request.args and "second" in request.args and "winner" in request.args:
         first_id = request.args["first"]
         second_id = request.args["second"]
@@ -98,16 +101,16 @@ def voting():
         check_vf1 = VotedFor.query.filter_by(first=first_id,second=second_id,user=session['user_id']).first()
         check_vf2 = VotedFor.query.filter_by(first=second_id,second=first_id,user=session['user_id']).first()
         if check_vf1 or check_vf2:
-            print('already voted')
+            #print('already voted')
             return redirect(url_for('views.voting'))
         
 
         vf = VotedFor(first=first_id,second=second_id,winner=winner_id,user=session['user_id'], created_at=datetime.now())
         db.session.add(vf)
         db.session.commit()
-        print(vf.id)
-        if vf.id % 50==0:
-            determine_score()
+        #print(vf.id)
+        # if vf.id % 50==0:
+        #     determine_score()
     return redirect(url_for('views.voting'))
 
 @backend.route('/register_api', methods=['POST'])
@@ -191,10 +194,11 @@ def find_own_picture():
             return redirect(url_for('views.upload'))
     abort(404)
 
-
-@backend.route('/epilepsy')
-def epilepsie():
-    return '''<iframe src="http://www.staggeringbeauty.com/" style="border: 1px inset #ddd" width="100%" height="100%"></iframe>'''
-
-
-
+@backend.route('/asdgasseasgsagasg23423fdasf', methods=['GET'])
+def hidden_leaderboard():
+    determine_score()
+    page = 1
+    if 'page' in request.args:
+        page = int(request.args['page'])
+    leaderboard = db.session.query(Pictures,Users).select_from(Pictures).join(Users).filter(Pictures.active==True).order_by(Pictures.place).paginate(per_page=9,page=page,error_out=True)
+    return render_template('leaderboard.html', leaderboard=leaderboard,page=page)

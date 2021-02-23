@@ -7,6 +7,8 @@ import datetime
 
 views = Blueprint('views', __name__)
 deadline = datetime.datetime(2021,2,22,5,30)
+deadline_voting = datetime.datetime(2021,2,23,20,00)
+deadline_leaderboard = datetime.datetime(2021,2,23,20,30)
 
 def login_required(f):
     @wraps(f)
@@ -25,6 +27,8 @@ def index():
 # Page to view recommended recipes
 @views.route('/leaderboard')
 def leaderboard():
+    if datetime.datetime.now() < deadline_leaderboard:
+        return render_template('leaderboardhidden.html')
     page = 1
     if 'page' in request.args:
         page = int(request.args['page'])
@@ -43,6 +47,8 @@ def upload():
 @views.route('/voting')
 @login_required
 def voting():
+    if datetime.datetime.now() > deadline_voting:
+        return render_template('votingabgelaufen.html')
     pictures = get_two_pictures()
     if pictures:
         return render_template('voting.html',picture1=pictures[0],picture2=pictures[1])
